@@ -14,20 +14,30 @@
                 <table class="table table-hover table-bordered align-middle">
                     <thead class="table-light">
                         <tr>
-                            <th>桌型人數規格 (Table Type)</th>
+                            <th>桌型流水號 (ID)</th>
+                            <th>桌型名稱 (Table Type Name)</th>
                             <th>該規格總桌數 (Table Count)</th>
                             <th width="180">操作</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="table : ${tableList}">
-                            <td class="fw-bold text-primary" th:text="${table.tableType} + ' 人桌'">2 人桌</td>
-                            <td th:text="${table.tableCount} + ' 桌'">5 桌</td>
+                            <td th:text="${table.tableTypeId}">1</td>
+                            
+                            <td class="fw-bold text-primary" th:text="${table.tableTypeName}">LARGE_TABLE</td>
+                            
+                            <td th:text="${table.tableTypeCount} + ' 桌'">2 桌</td>
+                            
                             <td>
-                                <a th:href="@{/admin/table/editPage(tableType=${table.tableType})}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen"></i> 修改</a>
+                                <a th:href="@{/admin/table/editPage(tableType=${table.tableTypeId})}" class="btn btn-warning btn-sm">
+                                    <i class="fa-solid fa-pen"></i> 修改
+                                </a>
+                                
                                 <form th:action="@{/admin/table/delete}" method="post" style="display:inline;" onsubmit="return confirm('確定要刪除嗎？');">
-                                    <input type="hidden" name="tableType" th:value="${table.tableType}">
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i> 刪除</button>
+                                    <input type="hidden" name="tableType" th:value="${table.tableTypeId}">
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fa-solid fa-trash"></i> 刪除
+                                    </button>
                                 </form>
                             </td>
                         </tr>

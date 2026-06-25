@@ -15,6 +15,7 @@
                             <th>會員 ID</th>
                             <th>預約日期</th>
                             <th>訂位時段 (Session)</th>
+                            <th>預約桌型</th>
                             <th>特殊需求備註</th>
                             <th>目前狀態</th>
                             <th width="200">狀態操作動作</th>
@@ -22,10 +23,16 @@
                     </thead>
                     <tbody>
                         <tr th:each="res : ${reservationList}">
-                            <td th:text="${res.reservationId}">100</td>
-                            <td th:text="${res.memberVO}">Member</td>
-                            <td th:text="${res.date}" class="fw-bold">2026-06-15</td>
+                            <td th:text="${res.reservationId}">1</td>
+                            <td th:text="${res.memberVO}">1</td>
+                            <td th:text="${res.date}" class="fw-bold">2024-06-01</td>
                             <td th:text="${res.businessHoursVO.startTime} + ' ~ ' + ${res.businessHoursVO.endTime}">12:00~14:00</td>
+                            
+                            <td>
+                                <span class="badge bg-secondary" th:if="${res.restaurantTableVO != null}" th:text="${res.restaurantTableVO.tableTypeName}">LARGE_TABLE</span>
+                                
+                                </td>
+
                             <td th:text="${res.reservationRequest}" class="text-muted small">無</td>
                             <td>
                                 <span th:if="${res.reservationStatus.name() == 'BOOKED'}" class="badge bg-primary p-2">已預約</span>

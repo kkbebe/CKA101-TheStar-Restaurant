@@ -28,8 +28,9 @@
                         <tr th:each="menu : ${menuList}">
                             <td th:text="${menu.itemId}">1</td>
                             <td>
-                                <img th:if="${menu.imageUrl}" th:src="${menu.imageUrl}" width="55" height="40" class="img-thumbnail">
-                                <span th:unless="${menu.imageUrl}" class="text-muted small">無圖片</span>
+                                <img th:if="${menu.imageUrl != null && !#strings.isEmpty(menu.imageUrl)}" 
+     th:src="@{'/images/' + ${menu.imageUrl}}" 
+     width="55" height="40" class="img-thumbnail" alt="餐點圖片">
                             </td>
                             <td th:text="${menu.menuCategoryVO.categoryName}"><span class="badge bg-secondary">分類</span></td>
                             <td th:text="${menu.itemName}" class="fw-bold text-dark">經典牛排</td>
