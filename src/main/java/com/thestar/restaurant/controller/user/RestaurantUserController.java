@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.thestar.restaurant.entity.RestaurantMenuVO;
 import com.thestar.restaurant.entity.RestaurantReservationVO;
 import com.thestar.restaurant.entity.RestaurantReviewVO;
+import com.thestar.member.entity.MemberVO;
 import com.thestar.restaurant.entity.ReservationStatus; // 確保有匯入您的狀態 Enum
 import com.thestar.restaurant.service.RestaurantMenuService;
 import com.thestar.restaurant.service.RestaurantReservationService;
@@ -50,9 +51,9 @@ public class RestaurantUserController {
     public String bookingPage(Model model) {
         if (!model.containsAttribute("reservationVO")) {
             RestaurantReservationVO reservationVO = new RestaurantReservationVO();
-            com.thestar.member.entity.MemberVO mockMember = new com.thestar.member.entity.MemberVO();
-            mockMember.setMemberId(1);
-            reservationVO.setMemberVO(mockMember);
+            MemberVO Member = new MemberVO();
+            Member.setMemberId(1);
+            reservationVO.setMemberVO(Member);
             model.addAttribute("reservationVO", reservationVO);
         }
         return "user/booking";
