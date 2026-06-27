@@ -72,4 +72,15 @@ public class RestaurantReservationService {
             repository.enableReview(reservationId);
         }
     }
+    
+ // 查某會員「已完成」且「尚未評論」的訂位紀錄
+    public List<RestaurantReservationVO> getUnreviewedReservationsByMemberId(Integer memberId) {
+        // 1. 先定義什麼狀態叫「已完成」用餐（假設你的列舉叫 ReservationStatus.FINISHED）
+        ReservationStatus status = ReservationStatus.FINISHED; 
+        
+        
+        
+        // 2. 呼叫剛剛在 Repository 寫好的方法（這邊以「尚未評論 hasReviewed = false」為例）
+        return repository.findUnreviewedReservations(memberId, status);
+    }
 }

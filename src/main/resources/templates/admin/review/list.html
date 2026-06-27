@@ -22,7 +22,7 @@
                     <tbody>
                         <tr th:each="review : ${reviewList}">
                             <td th:text="${review.reviewId}">1</td>
-                            <td th:text="${review.memberVO}">會員</td>
+                            <td th:text="${review.memberVO.menberId}">會員</td>
                             <td th:text="${review.restaurantReservationVO.reservationId}">1001</td>
                             <td>
                                 <span th:each="i : ${#numbers.sequence(1, review.reviewStars)}" class="text-warning">★</span>

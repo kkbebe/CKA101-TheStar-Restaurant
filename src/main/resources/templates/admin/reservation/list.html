@@ -19,12 +19,13 @@
                             <th>特殊需求備註</th>
                             <th>目前狀態</th>
                             <th width="200">狀態操作動作</th>
+                            <th>評論狀態</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="res : ${reservationList}">
                             <td th:text="${res.reservationId}">1</td>
-                            <td th:text="${res.memberVO}">1</td>
+                            <td th:text="${res.memberVO.memberId}">1</td>
                             <td th:text="${res.date}" class="fw-bold">2024-06-01</td>
                             <td th:text="${res.businessHoursVO.startTime} + ' ~ ' + ${res.businessHoursVO.endTime}">12:00~14:00</td>
                             
@@ -53,6 +54,7 @@
                                     </form>
                                 </div>
                                 <span th:unless="${res.reservationStatus.name() == 'BOOKED'}" class="text-muted small">無可用操作</span>
+                                <td th:text="${res.reviewStatus}"></td>
                             </td>
                         </tr>
                     </tbody>

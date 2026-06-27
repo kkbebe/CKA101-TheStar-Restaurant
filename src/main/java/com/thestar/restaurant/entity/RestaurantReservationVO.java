@@ -3,6 +3,8 @@ package com.thestar.restaurant.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.thestar.member.entity.MemberVO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -22,7 +24,7 @@ public class RestaurantReservationVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Integer reservationId;
-    private com.thestar.member.entity.MemberVO memberVO;        
+    private MemberVO memberVO;        
     private BusinessHoursVO businessHoursVO;
     
     // === 新增：桌型編號外鍵屬性 ===
@@ -50,10 +52,10 @@ public class RestaurantReservationVO implements Serializable {
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID") 
     @NotNull(message = "會員編號：不能空白")
-    public com.thestar.member.entity.MemberVO getMemberVO() {
+    public MemberVO getMemberVO() {
         return memberVO;
     }
-    public void setMemberVO(com.thestar.member.entity.MemberVO memberVO) {
+    public void setMemberVO(MemberVO memberVO) {
         this.memberVO = memberVO;
     }
 

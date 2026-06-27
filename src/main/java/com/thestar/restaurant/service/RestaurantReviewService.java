@@ -6,17 +6,56 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.thestar.member.entity.MemberVO;
+import com.thestar.restaurant.entity.RestaurantReservationVO;
 import com.thestar.restaurant.entity.RestaurantReviewVO;
+import com.thestar.restaurant.repository.RestaurantReservationRepository;
 import com.thestar.restaurant.repository.RestaurantReviewRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class RestaurantReviewService {
 
     @Autowired
     RestaurantReviewRepository repository;
+    
+    @Autowired
+    RestaurantReservationRepository restaurantReservationRepository;
+    
+    
 
-    public void addReview(RestaurantReviewVO reviewVO) {
+    @Transactional // 涉及到多張表的更新，務必加上事務控制
+    public void addReview(Integer memberId, Integer reservationId, Integer reviewStars, String reviewContent) {
+        
+        // 1. 建立並設定 RestaurantReviewVO
+        RestaurantReviewVO reviewVO = new RestaurantReviewVO();
+        reviewVO.setReviewStars(reviewStars);
+        reviewVO.setReviewContent(reviewContent);
+
+        // 設定關聯的 MemberVO (只需要塞入 ID 即可，JPA 會自動對應外鍵)
+        MemberVO member = new MemberVO();
+        member.setMemberId(memberId);
+        reviewVO.setMemberVO(member);
+
+        // 設定關聯的 RestaurantReservationVO
+        RestaurantReservationVO reservation = new RestaurantReservationVO();
+        reservation.setReservationId(reservationId);
+        reviewVO.setRestaurantReservationVO(reservation);
+
+        // 2. 儲存評論到資料庫
         repository.save(reviewVO);
+
+        // 3. 同步把該筆訂位的 reviewStatus 改為 false 
+        // 這裡直接借用你原本 Repository 的 update 概念，或寫一個專用的修改
+        if (repository.existsById(reservationId)) {
+            // 查出該筆訂位
+            RestaurantReservationVO originalReservation = restaurantReservationRepository.findById(reservationId).orElseThrow();
+            // 改成 false 代表已經評論過、關閉權限
+            originalReservation.setReviewStatus(false); 
+            // 存回去更新
+            restaurantReservationRepository.save(originalReservation);
+        }
     }
 
     public void updateReview(RestaurantReviewVO reviewVO) {
