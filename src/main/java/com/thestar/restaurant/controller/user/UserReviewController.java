@@ -32,7 +32,7 @@ public class UserReviewController {
     @Autowired
     private RestaurantReservationService restaurantReservationService;
     
-    Integer memberId = 1;
+    Integer memberId = 2;
     
     
 	

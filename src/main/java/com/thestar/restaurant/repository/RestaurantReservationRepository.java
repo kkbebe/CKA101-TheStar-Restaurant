@@ -46,6 +46,6 @@ public interface RestaurantReservationRepository extends JpaRepository<Restauran
     @Query("update RestaurantReservationVO r set r.reviewStatus = true where r.reservationId = ?1")
     void enableReview(int reservationId);
     
-    @Query("from RestaurantReservationVO r where r.memberVO.memberId = ?1 and r.reservationStatus = ?2 and r.reviewStatus = true")
+    @Query("from RestaurantReservationVO r where r.memberVO.memberId = ?1 and r.reservationStatus = ?2 and r.reviewStatus = false")
     List<RestaurantReservationVO> findUnreviewedReservations(Integer memberId, ReservationStatus status);
 }
