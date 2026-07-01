@@ -12,8 +12,8 @@
                     <thead class="table-light">
                         <tr>
                             <th>評論 ID</th>
-                            <th>會員</th>
-                            <th>對應預約單</th>
+                            <th>會員ID</th>
+                            <th>對應預約ID</th>
                             <th>星級評分</th>
                             <th>反饋評論內容</th>
                             <th width="100">操作</th>
@@ -22,7 +22,7 @@
                     <tbody>
                         <tr th:each="review : ${reviewList}">
                             <td th:text="${review.reviewId}">1</td>
-                            <td th:text="${review.memberVO.menberId}">會員</td>
+                            <td th:text="${review.memberVO.memberId}">會員</td>
                             <td th:text="${review.restaurantReservationVO.reservationId}">1001</td>
                             <td>
                                 <span th:each="i : ${#numbers.sequence(1, review.reviewStars)}" class="text-warning">★</span>
